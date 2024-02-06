@@ -4,6 +4,7 @@ import { SelectedPage } from "../../shared/types";
 import { Bars3Icon, XMarkIcon} from "@heroicons/react/24/solid";
 import Link from "./Link";
 
+
 type Props = {
     isTopOfPage: boolean;
     selectedPage: SelectedPage;
@@ -18,7 +19,7 @@ const Navbar = ( {selectedPage,setSelectedPage} : Props) => {
     const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
 
   return <nav>
-    <div className={`${flexEnd} sticky top-0 z-30 w-full py-6`}>
+    <div className={`${flexEnd} sticky top-0 z-30 w-full bg-black-200 md:p-2`}>
         <div className={`${flexCenter} mx-auto w-5/6`}>
         {isAboveMediumScreens ? (
                 <div className={`${flexCenter} w-full`}>
@@ -42,10 +43,10 @@ const Navbar = ( {selectedPage,setSelectedPage} : Props) => {
                 </div>
                 ) : (
                     <button
-                        className='fixed right-8 rounded-full bg-black-400 p-2 mt-10'
+                        className='fixed right-8 top-2 rounded-full bg-white p-2 mt-10'
                         onClick={() => setMenuToggled(!isMenuToggled)}
                     >
-                        <Bars3Icon className="h-6 w-6 text-white" />
+                        <Bars3Icon className="h-6 w-6 text-black-400" />
                     </button>
                 )}
         </div>
@@ -54,7 +55,7 @@ const Navbar = ( {selectedPage,setSelectedPage} : Props) => {
     {/* MOBILE MENU MODAL */}
     {!isAboveMediumScreens && isMenuToggled && (
         // if you want menu on the left, it should be left-0
-        <div className="fixed right-0 bottom-0 z-40 h-full w-[300px] bg-black-100 drop-shadow-xl">
+        <div className="fixed right-0 bottom-0 z-40 h-full w-[200px] bg-black-100 drop-shadow-xl">
             {/* CLOSE ICON */}
             <div className="flex justify-end p-12">
                 <button onClick={() => setMenuToggled(!isMenuToggled)}>

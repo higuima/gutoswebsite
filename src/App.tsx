@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "./scenes/Navbar"
 import { SelectedPage } from "./shared/types"
+import Home from "./scenes/Home";
 
 function App() {
   const [selectedPage,setSelectedPage ] = useState<SelectedPage>(SelectedPage.Home);
@@ -19,12 +20,15 @@ function App() {
   }, []);
 
   return (
-    <div className="app bg-black-200 no-select">
+    <div className="app">
     <Navbar 
       isTopOfPage={isTopOfPage}
       selectedPage={selectedPage}
       setSelectedPage={setSelectedPage}
     />
+    <Home setSelectedPage={function (): void {
+        throw new Error("Function not implemented.");
+      } }></Home>
   </div>
   )
 }

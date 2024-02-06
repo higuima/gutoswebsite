@@ -36,7 +36,8 @@ export default {
         black: '900',
       },
       content: {
-        evolvetext: "url('./assets/EvolveText.png')",
+        pedroGuitarra: "url('./assets/landingPage/pedroGuitarra.svg')",
+        pedroviolao: "url('./assets/landingPage/pedroViolao.svg')",
       },
     },
     screens: {
