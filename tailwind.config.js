@@ -23,6 +23,7 @@ export default {
       fontFamily: {
         convergence: ["Convergence", "sans-serif"],
         oswald: ["Oswald", "sans-serif"],
+        montserratAlternates: ['Montserrat Alternates', "sans-serif"]
       },
       fontWeight: {
         thin: '100',

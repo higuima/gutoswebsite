@@ -23,7 +23,7 @@ const Navbar = ( {selectedPage,setSelectedPage} : Props) => {
         <div className={`${flexCenter} mx-auto w-5/6`}>
         {isAboveMediumScreens ? (
                 <div className={`${flexCenter} w-full`}>
-                    <div className={`${flexBetween} text-4xl text-white-100 font-extralight w-full`}>
+                    <div className={`${flexBetween} text-5xl text-white-100 font-extralight w-full`}>
                         <Link 
                             page="HOME" 
                             selectedPage={selectedPage}
