@@ -1,20 +1,25 @@
 
 import { motion } from 'framer-motion';
 import { SelectedPage } from "../../shared/types";
+import { products } from '../../shared/products';
+import Carousel from './carousel';
+
 
 type Props = {
     setSelectedPage: (value: SelectedPage) => void;
 }
 
+
+
 const Servicos = ({setSelectedPage}: Props) => {
 
-  return <section id='serviços' >
+  return <section id='serviços' className='flex flex-col' >
     <motion.div 
         className="flex items-center justify-center h-full"
         onViewportEnter={() => setSelectedPage(SelectedPage.Serviços)}
     >
-    {/* PRODUCT DESCRIPTION */}
-    <div className='bg-black-100 w-full flex items-center justify-center py-20 flex-col gap-6'>
+        {/* PRODUCT DESCRIPTION */}
+        <div className='bg-black-100 w-full flex items-center justify-center py-20 flex-col gap-6'>
         <motion.div
             className='w-3/4'
             initial="hidden"
@@ -44,6 +49,16 @@ const Servicos = ({setSelectedPage}: Props) => {
         </motion.div>
         </div>
     </motion.div>
+     {/* PRODUCT DISPLAY */} 
+     <div className='bg-black-200 w-full flex justify-center items-center'>
+        <div className='w-5/6 h-[800px] flex justify-center items-center my-20'>
+          <Carousel
+          autoSlide={false}
+          autoSlideInterval={0} children={products}>
+          </Carousel>
+        </div>
+
+     </div>
   </section>
 }
 

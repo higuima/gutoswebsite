@@ -4,21 +4,10 @@ export enum SelectedPage {
     Contato = "contato",
 }
 
-export interface ServiceType {
-    name: string;
-    header_description: string;
-    description?: string;
-    images: Array<string>;
-    pageName: string;
-    type: Content;
-    challenges: string;
-    result: string;
-    article: string;
-    url: string;
-}
-
-export enum Content {
-    Design = "design",
-    Data = "data",
-    Proparanda = "propaganda"
+export interface ProductType{
+    name: string,
+    description: string,
+    id:string,
+    image: string,
+    price: number,
 }

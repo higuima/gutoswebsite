@@ -17,6 +17,14 @@ const Navbar = ( {selectedPage,setSelectedPage} : Props) => {
     const flexBetween = "flex  items-center justify-around";
     const [isMenuToggled, setMenuToggled ] = useState<boolean>(false);
     const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
+    const lowerCasePage = selectedPage.toLowerCase().replace(/ /g, "") as SelectedPage;
+
+    function redirectAndClose(){
+        setSelectedPage(lowerCasePage)
+        setMenuToggled(!isMenuToggled)
+    }
+    
+    console.log(selectedPage)
 
   return <nav>
     <div className={`${flexEnd} sticky top-0 z-30 w-full bg-black-200 md:p-2`}>
@@ -28,16 +36,19 @@ const Navbar = ( {selectedPage,setSelectedPage} : Props) => {
                             page="HOME" 
                             selectedPage={selectedPage}
                             setSelectedPage={setSelectedPage}
+                            onclick={() => setSelectedPage(lowerCasePage) }
                         />
                         <Link 
                             page="SERVIÇOS"
                             selectedPage={selectedPage}
                             setSelectedPage={setSelectedPage}
+                            onclick={() => setSelectedPage(lowerCasePage) }
                         />
                         <Link 
                             page="CONTATO"
                             selectedPage={selectedPage}
                             setSelectedPage={setSelectedPage}
+                            onclick={() => setSelectedPage(lowerCasePage) }
                         />
                     </div>
                 </div>
@@ -65,20 +76,23 @@ const Navbar = ( {selectedPage,setSelectedPage} : Props) => {
 
             {/* MENU ITEMS */}
             <div className="ml-[33%] flex flex-col gap-10 text-2xl text-white-100 font-extralight">
-                <Link 
+                <Link
                     page="HOME" 
                     selectedPage={selectedPage}
                     setSelectedPage={setSelectedPage}
+                    onclick={() => redirectAndClose() }
                 />
                 <Link 
                     page="SERVIÇOS"
                     selectedPage={selectedPage}
                     setSelectedPage={setSelectedPage}
+                    onclick={() => redirectAndClose() }
                 />
                 <Link 
                     page="CONTATO"
                     selectedPage={selectedPage}
                     setSelectedPage={setSelectedPage}
+                    onclick={() => redirectAndClose() }
                 />
             </div>
         </div>

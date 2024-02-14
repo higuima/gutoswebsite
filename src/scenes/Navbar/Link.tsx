@@ -5,12 +5,15 @@ type Props = {
     page: string;
     selectedPage: SelectedPage;
     setSelectedPage: (value:SelectedPage) => void;
+    onclick?: () => void;
 }
+
+
 
 const Link = ({
     page,
     selectedPage,
-    setSelectedPage,
+    onclick
 }: Props) => {
     const lowerCasePage = page.toLowerCase().replace(/ /g, "") as SelectedPage;
 
@@ -20,7 +23,7 @@ const Link = ({
             transition duration-5 hover:text-primary-500
         `}
         href={`#${lowerCasePage}`}
-        onClick={() => setSelectedPage(lowerCasePage)}
+        onClick={onclick}
     >
         {page}
     </AnchorLink>
