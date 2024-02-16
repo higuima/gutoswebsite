@@ -21,7 +21,7 @@ function App() {
   }, []);
 
   return (
-    <div className="app">
+    <div className="app select-none">
     <Navbar 
       isTopOfPage={isTopOfPage}
       selectedPage={selectedPage}

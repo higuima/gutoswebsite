@@ -23,8 +23,6 @@ const Navbar = ( {selectedPage,setSelectedPage} : Props) => {
         setSelectedPage(lowerCasePage)
         setMenuToggled(!isMenuToggled)
     }
-    
-    console.log(selectedPage)
 
   return <nav>
     <div className={`${flexEnd} sticky top-0 z-30 w-full bg-black-200 md:p-2`}>
