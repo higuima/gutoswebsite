@@ -2,10 +2,11 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useRef, useState } from "react";
 import { ProductType } from "../../shared/types";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import whatsapp from "../../assets/whatsapp.svg";
+import ContentEditable from "react-contenteditable";
 
 type Props = {
   children: Array<ProductType>;
@@ -22,7 +23,10 @@ export default function Moment({
   // const prev = () => setCurrentSlide(currentSlide => currentSlide === 0? slides.length - 1 : currentSlide - 1 )
   const images = product.map((prd: ProductType) => prd.image);
 
+  const styleButton = 'active:bg-orange-300 focus:outline-none focus:ring focus:ring-orange-100'
+  
   const slide = product[currentSlide];
+
   const next = () =>
     setCurrentSlide((currentSlide) =>
       currentSlide === images.length - 1 ? 0 : currentSlide + 1
@@ -36,10 +40,10 @@ export default function Moment({
 
   const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
 
-  const [locationChoice, setLocationChoice] = useState('');
-  const [playlistChoice, setplaylistChoice] = useState('');
+  const [locationChoice, setLocationChoice] = useState("");
+  const [playlistChoice, setplaylistChoice] = useState("");
 
-  console.log(locationChoice, playlistChoice)
+  const [message,setMessage] = useState("")
   
   return (
     <>
@@ -111,7 +115,7 @@ export default function Moment({
               </motion.div>
 
               <motion.div
-                className="w-[75%] bg-black-100 text-white p-2 rounded-md text-center font-oswald font-normal"
+                className={`w-[75%] bg-black-100 text-white rounded-md text-center font-oswald font-normal ${styleButton}`}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.5 }}
@@ -120,8 +124,15 @@ export default function Moment({
                   hidden: { opacity: 0, y: 150 },
                   visible: { opacity: 1, y: 0 },
                 }}
+                id={slide.id}
               >
-                <button onClick={() => {setLocationChoice(slide.id)}}>
+                <button
+                  className={`p-2 rounded-md ${styleButton}`}
+                  id={slide.id}
+                  onClick={() => {
+                    setLocationChoice(slide.id);
+                  }}
+                >
                   Escolher este momento
                 </button>
               </motion.div>
@@ -213,8 +224,14 @@ export default function Moment({
                   hidden: { opacity: 0, y: 30 },
                   visible: { opacity: 1, y: 0 },
                 }}
+                id={slide.id}
               >
-                <button className="w-full bg-black-100 text-white p-2 rounded-md" onClick={() => {setLocationChoice(slide.id)}}>
+                <button
+                  className={`w-full bg-black-100 text-white p-2 rounded-md ${styleButton}`}
+                  onClick={() => {
+                    setLocationChoice(slide.id);
+                  }}
+                >       
                   Escolher este momento
                 </button>
               </motion.div>
@@ -233,118 +250,194 @@ export default function Moment({
       )}
 
       {/* CHOOSE PLAYLIST */}
-      <div className="w-5/6 flex flex-col gap-4">
-      <motion.div
-            className='w-full'
-            initial="hidden"
-            whileInView="visible"
-            viewport={{once: true, amount: 0.5}}
-            transition={{ duration: 0.7 }}
-            variants={{
-              hidden: { opacity: 0, x: -100 },
-              visible: { opacity: 1, x: 0 },
-            }}>
-            <h1 className='text-white-100 text-2xl md:text-4xl text-center md:text-start'>Escolha sua playlist</h1>
-      </motion.div>
-      <motion.div
-          className='w-full'
+      <div className="w-5/6 h-fit flex flex-col gap-4">
+        <motion.div
+          className="w-full"
           initial="hidden"
           whileInView="visible"
-          viewport={{once: true, amount: 0.5}}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.7 }}
+          variants={{
+            hidden: { opacity: 0, x: -100 },
+            visible: { opacity: 1, x: 0 },
+          }}
+        >
+          <h1 className="text-white-100 text-2xl md:text-4xl text-center md:text-start">
+            Escolha sua playlist
+          </h1>
+        </motion.div>
+        <motion.div
+          className="w-full"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.7 }}
           variants={{
             hidden: { opacity: 0, x: -150 },
             visible: { opacity: 1, x: 0 },
-          }}>
-          <h3 className="text-white text-sm font-montserratAlternates font-light text-starts">
+          }}
+        >
+          <h3 className="text-white text-md font-montserratAlternates font-light text-starts">
             Escolha 15 músicas de um vasto repertório
           </h3>
-      </motion.div>
-      <div className="grid grid-cols-3 gap-4">
-        {/* MUSICAS INTERNACIONAIS */}
-          <motion.div 
-          className="border-4 border-black-100 rounded-lg p-5 text-center flex flex-col gap-2"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{once: true, amount: 0.5}}
-          transition={{ duration: 0.7 }}
-          variants={{
-            hidden: { opacity: 0, y: 100 },
-            visible: { opacity: 1, y: 0 },
-          }}>
-            <h1 className="text-white-100 text-lg md:text-xl">Músicas internacionais</h1>
-            <h2 className="text-white-100 text-lg md:text-xl font-montserratAlternates">R$0,00</h2>
-            <button className="w-full bg-black-100 text-white p-2 rounded-md" onClick={() => {setplaylistChoice('internacionais')}}>
-                  Escolher esta playlist
-                </button>
-          </motion.div>
-        {/* MUSICAS MPB */}
-        <motion.div 
-          className="border-4 border-black-100 rounded-lg p-5 text-center flex flex-col gap-2"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{once: true, amount: 0.5}}
-          transition={{ duration: 0.7 }}
-          variants={{
-            hidden: { opacity: 0, y: 150 },
-            visible: { opacity: 1, y: 0 },
-          }}>
-            <h1 className="text-white-100 text-lg md:text-xl">Popular Brasileira</h1>
-            <h2 className="text-white-100 text-lg md:text-xl font-montserratAlternates">R$0,00</h2>
-            <button className="w-full bg-black-100 text-white p-2 rounded-md" onClick={() => {setplaylistChoice('mpb')}}>
-                  Escolher esta playlist
-                </button>
-          </motion.div>
-        {/* PERSONALIZADAS */}
-        <motion.div 
-          className="border-4 border-black-100 rounded-lg p-5 text-center flex flex-col gap-2"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{once: true, amount: 0.5}}
-          transition={{ duration: 0.7 }}
-          variants={{
-            hidden: { opacity: 0, y: 170 },
-            visible: { opacity: 1, y: 0 },
-          }}>
-            <h1 className="text-white-100 text-lg md:text-xl">Personalizado</h1>
-            <h2 className="text-white-100 text-lg md:text-xl font-montserratAlternates">R$100,00</h2>
-            <button className="w-full bg-black-100 text-white p-2 rounded-md active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300" onClick={() => {setplaylistChoice('personalizar')}}>
+        </motion.div>
+        <div className="grid md:grid-cols-3 gap-4 h-fit">
+          {/* MUSICAS INTERNACIONAIS */}
+          <motion.div
+            className="border-4 border-black-100 rounded-lg p-5 text-center flex flex-col gap-2"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.7 }}
+            variants={{
+              hidden: { opacity: 0, y: 100 },
+              visible: { opacity: 1, y: 0 },
+            }}
+          >
+            <h1 className="text-white-100 text-lg md:text-xl">
+              Internacionais
+            </h1>
+            <h2 className="text-white-100 text-lg md:text-xl font-montserratAlternates">
+              R$0,00
+            </h2>
+            <button
+              className={`w-full bg-black-100 text-white p-2 rounded-md ${styleButton}`}
+              onClick={() => {
+                setplaylistChoice("internacionais");
+              }}
+            >
               Escolher esta playlist
             </button>
           </motion.div>
-      </div>
+          {/* MUSICAS MPB */}
+          <motion.div
+            className="border-4 border-black-100 rounded-lg p-5 text-center flex flex-col gap-2"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.7 }}
+            variants={{
+              hidden: { opacity: 0, y: 150 },
+              visible: { opacity: 1, y: 0 },
+            }}
+          >
+            <h1 className="text-white-100 text-lg md:text-xl">
+              Popular Brasileira
+            </h1>
+            <h2 className="text-white-100 text-lg md:text-xl font-montserratAlternates">
+              R$0,00
+            </h2>
+            <button
+              className={`w-full bg-black-100 text-white p-2 rounded-md ${styleButton}`}
+              onClick={() => {
+                setplaylistChoice("mpb");
+              }}
+            >
+              Escolher esta playlist
+            </button>
+          </motion.div>
+          {/* PERSONALIZADAS */}
+          <motion.div
+            className="border-4 border-black-100 rounded-lg p-5 text-center flex flex-col gap-2"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.7 }}
+            variants={{
+              hidden: { opacity: 0, y: 170 },
+              visible: { opacity: 1, y: 0 },
+            }}
+          >
+            <h1 className="text-white-100 text-lg md:text-xl">Personalizado</h1>
+            <h2 className="text-white-100 text-lg md:text-xl font-montserratAlternates">
+              R$100,00
+            </h2>
+            <button
+              className={`w-full bg-black-100 text-white p-2 rounded-md ${styleButton}`}
+              onClick={() => {
+                setplaylistChoice("personalizada");
+              }}
+            >
+              Escolher esta playlist
+            </button>
+          </motion.div>
+        </div>
       </div>
 
-      {/* CHOOSE PLAYLIST */}
+      {/* ENVIE SUA MENSAGEM */}
       <div className="w-5/6 flex flex-col gap-4">
-      <motion.div
-            className='w-full'
+        <motion.div
+          className="w-full"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.7 }}
+          variants={{
+            hidden: { opacity: 0, x: -100 },
+            visible: { opacity: 1, x: 0 },
+          }}
+        >
+          <h1 className="text-white-100 text-2xl md:text-4xl text-center md:text-start">
+            Envie sua mensagem e agende seu momento agora mesmo!
+          </h1>
+        </motion.div>
+        <div className="flex flex-col-reverse md:flex-row gap-4">
+          <div className="flex flex-col gap-4 md:basis-2/3">
+          <motion.div
+            className="w-full"
             initial="hidden"
             whileInView="visible"
-            viewport={{once: true, amount: 0.5}}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.7 }}
             variants={{
               hidden: { opacity: 0, x: -100 },
               visible: { opacity: 1, x: 0 },
-            }}>
-            <h1 className='text-white-100 text-2xl md:text-4xl text-center md:text-start'>Envie sua mensagem e agende seu momento agora mesmo!</h1>
-      </motion.div>
-      <motion.div
-            className='w-full'
+            }}
+          >
+            <textarea
+            className="editable w-full px-4 pb-6 pt-4 text-white-100 rounded-lg bg-black-100 placeholder:text-md md:placeholder:text-xl placeholder:font-normal placeholder:font-montserratAlternates font-montserratAlternates"
+            placeholder="Mensagem Personalizada"
+            value={message}
+            onChange={(e) => {setMessage(e.target.value)}}
+            >
+            </textarea>
+          
+          </motion.div>
+          {/* SUBMIT */}
+          <div className="flex justify-end">
+            <div className={`w-full md:w-1/2 gap-2 flex flex-row items-center justify-around bg-black-400 text-white p-3 rounded-md ${styleButton}`}>
+              <img className="w-6 h-6 md:w-10 md:h-10" alt="Chat on WhatsApp" src={whatsapp} />
+              <a
+                className="text-lg"
+                aria-label="Chat on WhatsApp"
+                href="https://wa.me/5519997925720"
+                target="_blank"
+              >
+                Enviar escolhas via Whatsapp
+              </a>
+            </div>
+          </div>
+        </div>
+        {/* "CARRINHO" */}
+            <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{once: true, amount: 0.5}}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.7 }}
             variants={{
-              hidden: { opacity: 0, x: -100 },
+              hidden: { opacity: 0, x: -150 },
               visible: { opacity: 1, x: 0 },
-            }}>
-        <input className="w-full px-4 pb-6 pt-4 rounded-lg bg-black-100 placeholder:text-xl placeholder:font-normal placeholder:font-montserratAlternates font-montserratAlternates" placeholder="Mensagem personalizada "></input>
-      </motion.div>
-      <div className="w-1/4 flex flex-row items-center justify-around bg-black-300 text-white p-3 rounded-md active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
-        <img className="w-10 h-10" alt="Chat on WhatsApp" src={whatsapp} />
-        <a aria-label="Chat on WhatsApp" href="https://wa.me/5519997925720" target="_blank">Enviar via Whatsapp</a>
-      </div>
+            }}
+            className="space-y-2 w-full p-4 text-white-100 rounded-lg bg-black-100 font-normal text-lg md:basis-1/3">
+            <h1 className="font-montserratAlternates font-extralight">Momento escolhido:</h1>
+            <div className="w-full p-4 text-black-100 rounded-lg bg-gray-50">
+              Localização: {locationChoice? locationChoice: "" }
+            </div>
+            <div className="w-full p-4 text-black-100 rounded-lg bg-gray-50">
+              Playlist: {playlistChoice? playlistChoice: ""}
+            </div>
+            </motion.div>
+        </div>
       </div>
     </>
   );

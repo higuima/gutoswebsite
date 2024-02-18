@@ -7,13 +7,16 @@ export default {
   theme: {
     extend: {
       colors:{
-        "white-100": "#FBF7F7",
-        "white-200": "#FFFFFF",
         "black-100": "#2D2D2C",
         "black-200": "#161616",
         "black-300": "#0d0d0b",
         "black-400": "#000000",
         "gray-50": "#d9d9d9",
+        "orange-100": "#FBD994",
+        "orange-200": "#FCB47C",
+        "orange-300": "#CE754D",
+        "white-100": "#FBF7F7",
+        "white-200": "#FFFFFF",
       },
       backgroundImage: () => ({
         "gradient-yellowred":
