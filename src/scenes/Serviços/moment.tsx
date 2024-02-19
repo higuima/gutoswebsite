@@ -44,7 +44,16 @@ export default function Moment({
   const [playlistChoice, setplaylistChoice] = useState("");
 
   const [message,setMessage] = useState("")
-  const messageText = "Olá tenho interesse em agendar um momento!%0A" + message + "%0ALocalização escolhida: " + locationChoice + "%0APlaylist escolhida: " + playlistChoice
+
+  let messageText = "Olá tenho interesse em agendar um momento!%0A" + message 
+  
+  if (locationChoice) {
+    messageText =+ "%0ALocalização escolhida: " + locationChoice
+  }
+
+  if (playlistChoice) {
+    messageText =+ "%0APlaylist escolhida: " + playlistChoice
+  }
   
   return (
     <>
