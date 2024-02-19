@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { ChevronRightIcon } from "@heroicons/react/24/solid";
+import { ChevronRightIcon, InformationCircleIcon } from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
-import { SetStateAction, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ProductType } from "../../shared/types";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import whatsapp from "../../assets/whatsapp.svg";
-import ContentEditable from "react-contenteditable";
+import '../../index.css'
 
 type Props = {
   children: Array<ProductType>;
@@ -44,6 +44,7 @@ export default function Moment({
   const [playlistChoice, setplaylistChoice] = useState("");
 
   const [message,setMessage] = useState("")
+  const messageText = "Olá tenho interesse em agendar um momento!%0A" + message + "%0ALocalização escolhida: " + locationChoice + "%0APlaylist escolhida: " + playlistChoice
   
   return (
     <>
@@ -365,7 +366,7 @@ export default function Moment({
       </div>
 
       {/* ENVIE SUA MENSAGEM */}
-      <div className="w-5/6 flex flex-col gap-4">
+      <div id='contato' className="w-5/6 flex flex-col gap-4">
         <motion.div
           className="w-full"
           initial="hidden"
@@ -410,7 +411,7 @@ export default function Moment({
               <a
                 className="text-lg"
                 aria-label="Chat on WhatsApp"
-                href="https://wa.me/5519997925720"
+                href={`https://wa.me/554888681818/?text=${messageText}`}
                 target="_blank"
               >
                 Enviar escolhas via Whatsapp
@@ -429,7 +430,13 @@ export default function Moment({
               visible: { opacity: 1, x: 0 },
             }}
             className="space-y-2 w-full p-4 text-white-100 rounded-lg bg-black-100 font-normal text-lg md:basis-1/3">
-            <h1 className="font-montserratAlternates font-extralight">Momento escolhido:</h1>
+            <h1 className="font-montserratAlternates font-extralight flex flex-row gap-2">
+              <div className="has-tooltip">
+              <span className='tooltip rounded shadow-lg p-1 bg-black-300 text-white-100 text-sm -mt-9'>Selecione uma localização e uma playlist acima</span>
+              <InformationCircleIcon className="w-6 h-6">´
+              </InformationCircleIcon> 
+              </div>
+              Momento escolhido:</h1>
             <div className="w-full p-4 text-black-100 rounded-lg bg-gray-50">
               Localização: {locationChoice? locationChoice: "" }
             </div>

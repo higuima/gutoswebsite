@@ -3,6 +3,7 @@ import Navbar from "./scenes/Navbar"
 import { SelectedPage } from "./shared/types"
 import Home from "./scenes/Home";
 import Servicos from "./scenes/Serviços";
+import Footer from "./scenes/Footer";
 
 function App() {
   const [selectedPage,setSelectedPage ] = useState<SelectedPage>(SelectedPage.Home);
@@ -33,6 +34,9 @@ function App() {
     <Servicos setSelectedPage={function (): void {
         throw new Error("Function not implemented.");
       } }></Servicos>
+    <Footer setSelectedPage={function (): void {
+        throw new Error("Function not implemented.");
+      } }></Footer>
   </div>
   )
 }
